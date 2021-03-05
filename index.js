@@ -37,6 +37,12 @@ const ctx = canvas.getContext("2d");
 function resize() {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
+  let background = new Image();
+  background.src = "images/geliusno.png";
+  let multiplier = window.innerWidth / background.width;
+  let width = background.width * multiplier;
+  let height = background.height * multiplier;
+  ctx.drawImage(background, 0, 0, width, height);
 }
 
 // Stores the initial position of the cursor
@@ -60,24 +66,28 @@ let imageHeight,
 // The following functions toggle the flag to start
 // and stop drawing
 function startPainting(event) {
-  paint = true;
-  pic = pics[Math.floor(Math.random() * pics.length)];
-  getPosition(event);
-  x = coord.x;
-  y = coord.y;
+  if (event.path[0].id != "navigationButton") {
+    paint = true;
+    index = Math.floor(Math.random() * pics.length);
+    pic = pics[index];
+    getPosition(event);
+    x = coord.x;
+    y = coord.y;
 
-  let height = 250;
-  let multiplier = pic.height / height;
-  imageHeight = pic.height / multiplier;
-  imageWidth = pic.width / multiplier;
+    let height = 250;
+    let multiplier = pic.height / height;
+    imageHeight = pic.height / multiplier;
+    imageWidth = pic.width / multiplier;
 
-  ctx.drawImage(
-    pic,
-    coord.x - imageWidth / 2,
-    coord.y - imageHeight / 2,
-    imageWidth,
-    imageHeight
-  );
+    ctx.drawImage(
+      pic,
+      coord.x - imageWidth / 2,
+      coord.y - imageHeight / 2,
+      imageWidth,
+      imageHeight
+    );
+    document.getElementById("imageText").innerHTML = images[index];
+  }
 }
 
 function stopPainting() {
@@ -94,7 +104,7 @@ function sketch(event) {
   // mouse around.
   getPosition(event);
   if (x != 0 || y != 0) {
-    let n = 40;
+    let n = 10;
     for (let i = 1; i < n + 1; i++) {
       ctx.drawImage(
         pic,
