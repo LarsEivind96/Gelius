@@ -14,18 +14,30 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", resize);
 });
 
-let images = [
+/*let images = [
   "golden_retriever_full_hd.jpg",
   "PumpBicep.png",
   "concert.jpg",
   "aoki.jpg",
   "cheat_code.jpg",
   "geliusno.png",
+];*/
+let images = [
+  //"fast entertainment 2.psd",
+  "gimp_image.png",
+  "Fastclvb horsepower fff red.png",
+  "imm007_8-kopi.jpg",
+  "imm026_29.jpg",
+  "imm027_29.jpg",
+  "imm029_32.jpg",
+  "prosjekt2-kopi.jpg",
+  "Skjermbilde 2019-10-27 kl. 14.45.10.png",
+  "Skjermbilde 2021-03-03 kl. 13.31.33-kopi.png",
 ];
 let pics = [];
 for (imageIndex in images) {
   let pic = new Image();
-  pic.src = "images/" + images[imageIndex];
+  pic.src = "assets/" + images[imageIndex];
   pics.push(pic);
 }
 
@@ -42,12 +54,13 @@ const ctx = canvas.getContext("2d");
 function resize() {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
-  let background = new Image();
+
+  /* let background = new Image();
   background.src = "images/geliusno.png";
   let multiplier = window.innerWidth / background.width;
   let width = background.width * multiplier;
   let height = background.height * multiplier;
-  ctx.drawImage(background, 0, 0, width, height);
+  ctx.drawImage(background, 0, 0, width, height);*/
 }
 
 // Stores the initial position of the cursor
@@ -83,6 +96,8 @@ function startPainting(event) {
     let multiplier = pic.height / height;
     imageHeight = pic.height / multiplier;
     imageWidth = pic.width / multiplier;
+
+    console.log(images[index]);
 
     ctx.drawImage(
       pic,
