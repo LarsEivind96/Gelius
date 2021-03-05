@@ -6,6 +6,11 @@ window.addEventListener("load", () => {
   document.addEventListener("mousedown", startPainting);
   document.addEventListener("mouseup", stopPainting);
   document.addEventListener("mousemove", sketch);
+
+  document.addEventListener("touchstart", startPainting);
+  document.addEventListener("touchend", stopPainting);
+  document.addEventListener("touchmove", sketch);
+
   window.addEventListener("resize", resize);
 });
 
