@@ -9,7 +9,14 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", resize);
 });
 
-let images = ["golden_retriever_full_hd.jpg", "PumpBicep.png"];
+let images = [
+  "golden_retriever_full_hd.jpg",
+  "PumpBicep.png",
+  "concert.jpg",
+  "aoki.jpg",
+  "cheat_code.jpg",
+  "geliusno.png",
+];
 let pics = [];
 for (imageIndex in images) {
   let pic = new Image();
@@ -47,32 +54,59 @@ function getPosition(event) {
   coord.y = event.clientY - canvas.offsetTop;
 }
 
+let imageHeight,
+  imageWidth = 0;
+
 // The following functions toggle the flag to start
 // and stop drawing
 function startPainting(event) {
   paint = true;
   pic = pics[Math.floor(Math.random() * pics.length)];
   getPosition(event);
+  x = coord.x;
+  y = coord.y;
+
+  let height = 250;
+  let multiplier = pic.height / height;
+  imageHeight = pic.height / multiplier;
+  imageWidth = pic.width / multiplier;
+
+  ctx.drawImage(
+    pic,
+    coord.x - imageWidth / 2,
+    coord.y - imageHeight / 2,
+    imageWidth,
+    imageHeight
+  );
 }
+
 function stopPainting() {
   paint = false;
 }
+
+let x,
+  y = 0;
 
 function sketch(event) {
   if (!paint) return;
   // The position of the cursor
   // gets updated as we move the
   // mouse around.
-  console.log(coord);
   getPosition(event);
-  ctx.moveTo(coord.x, coord.y);
-  ctx.drawImage(
-    pic,
-    coord.x - pic.width / 6,
-    coord.y - pic.height / 6,
-    pic.width / 3,
-    pic.height / 3
-  );
+  if (x != 0 || y != 0) {
+    let n = 40;
+    for (let i = 1; i < n + 1; i++) {
+      ctx.drawImage(
+        pic,
+        ((coord.x - x) * i) / n + x - imageWidth / 2,
+        ((coord.y - y) * i) / n + y - imageHeight / 2,
+        imageWidth,
+        imageHeight
+      );
+    }
+  }
+  x = coord.x;
+  y = coord.y;
 
   /*ctx.beginPath();
 
