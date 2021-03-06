@@ -25,14 +25,6 @@ function touchEnd(event) {
   stopPainting(event.changedTouches[0]);
 }
 
-/*let images = [
-  "golden_retriever_full_hd.jpg",
-  "PumpBicep.png",
-  "concert.jpg",
-  "aoki.jpg",
-  "cheat_code.jpg",
-  "geliusno.png",
-];*/
 let images = [
   "fast_entertainment_2.png",
   "Fastclvb horsepower fff red.png",
@@ -50,9 +42,8 @@ for (imageIndex in images) {
   pic.src = "assets/" + images[imageIndex];
   pics.push(pic);
 }
+let picIndex = 0;
 
-// let pic = new Image();
-// pic.src = "images/golden_retriever_full_hd.jpg"; //"PumpBicep.png";
 let pic = pics[0];
 
 const canvas = document.querySelector("#canvas");
@@ -64,13 +55,6 @@ const ctx = canvas.getContext("2d");
 function resize() {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
-
-  /* let background = new Image();
-  background.src = "images/geliusno.png";
-  let multiplier = window.innerWidth / background.width;
-  let width = background.width * multiplier;
-  let height = background.height * multiplier;
-  ctx.drawImage(background, 0, 0, width, height);*/
 }
 
 // Stores the initial position of the cursor
@@ -96,8 +80,7 @@ let imageHeight,
 function startPainting(event) {
   if (event.path[0].id != "navigationButton") {
     paint = true;
-    index = Math.floor(Math.random() * pics.length);
-    pic = pics[index];
+    pic = pics[picIndex];
     getPosition(event);
     x = coord.x;
     y = coord.y;
@@ -107,7 +90,7 @@ function startPainting(event) {
     imageHeight = pic.height / multiplier;
     imageWidth = pic.width / multiplier;
 
-    console.log(images[index]);
+    console.log(images[picIndex]);
 
     ctx.drawImage(
       pic,
@@ -116,7 +99,11 @@ function startPainting(event) {
       imageWidth,
       imageHeight
     );
-    document.getElementById("imageText").innerHTML = images[index];
+    document.getElementById("imageText").innerHTML = images[picIndex];
+    picIndex += 1;
+    if (picIndex == pics.length) {
+      picIndex = 0;
+    }
   }
 }
 
