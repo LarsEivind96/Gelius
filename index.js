@@ -7,12 +7,23 @@ window.addEventListener("load", () => {
   document.addEventListener("mouseup", stopPainting);
   document.addEventListener("mousemove", sketch);
 
-  document.addEventListener("touchstart", startPainting);
-  document.addEventListener("touchend", stopPainting);
-  document.addEventListener("touchmove", sketch);
+  document.addEventListener("touchstart", touchStart);
+  document.addEventListener("touchend", touchEnd);
+  document.addEventListener("touchmove", touchMove);
 
   window.addEventListener("resize", resize);
 });
+
+function touchStart(event) {
+  startPainting(event.touches[0]);
+}
+function touchMove(event) {
+  sketch(event.touches[0]);
+  event.preventDefault();
+}
+function touchEnd(event) {
+  stopPainting(event.changedTouches[0]);
+}
 
 /*let images = [
   "golden_retriever_full_hd.jpg",
@@ -23,8 +34,7 @@ window.addEventListener("load", () => {
   "geliusno.png",
 ];*/
 let images = [
-  //"fast entertainment 2.psd",
-  "gimp_image.png",
+  "fast_entertainment_2.png",
   "Fastclvb horsepower fff red.png",
   "imm007_8-kopi.jpg",
   "imm026_29.jpg",
