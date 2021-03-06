@@ -41,6 +41,7 @@ function touchStart(event) {
   if (picIndex == pics.length) {
     picIndex = 0;
   }
+  event.preventDefault();
 }
 function touchMove(event) {
   if (!paint) return;
