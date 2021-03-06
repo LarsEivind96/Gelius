@@ -15,10 +15,54 @@ window.addEventListener("load", () => {
 });
 
 function touchStart(event) {
-  startPainting(event.touches[0]);
+  // startPainting(event.touches[0]);
+  paint = true;
+  pic = pics[picIndex];
+  getPositionTouch(event.touches[0]);
+  x = coord.x;
+  y = coord.y;
+
+  let height = 250;
+  let multiplier = pic.height / height;
+  imageHeight = pic.height / multiplier;
+  imageWidth = pic.width / multiplier;
+
+  console.log(images[picIndex]);
+
+  ctx.drawImage(
+    pic,
+    coord.x - imageWidth / 2,
+    coord.y - imageHeight / 2,
+    imageWidth,
+    imageHeight
+  );
+  document.getElementById("imageText").innerHTML = images[picIndex];
+  picIndex += 1;
+  if (picIndex == pics.length) {
+    picIndex = 0;
+  }
 }
 function touchMove(event) {
-  sketch(event.touches[0]);
+  if (!paint) return;
+  // The position of the cursor
+  // gets updated as we move the
+  // mouse around.
+  getPositionTouch(event.touches[0]);
+  if (x != 0 || y != 0) {
+    let n = 10;
+    for (let i = 1; i < n + 1; i++) {
+      ctx.drawImage(
+        pic,
+        ((coord.x - x) * i) / n + x - imageWidth / 2,
+        ((coord.y - y) * i) / n + y - imageHeight / 2,
+        imageWidth,
+        imageHeight
+      );
+    }
+  }
+  x = coord.x;
+  y = coord.y;
+
   event.preventDefault();
 }
 function touchEnd(event) {
@@ -72,6 +116,11 @@ function getPosition(event) {
   coord.y = event.clientY - canvas.offsetTop;
 }
 
+function getPositionTouch(event) {
+  coord.x = event.pageX - canvas.offsetLeft;
+  coord.y = event.pageY - canvas.offsetTop;
+}
+
 let imageHeight,
   imageWidth = 0;
 
@@ -79,6 +128,7 @@ let imageHeight,
 // and stop drawing
 function startPainting(event) {
   if (event.path[0].id != "navigationButton") {
+    console.log("Launched");
     paint = true;
     pic = pics[picIndex];
     getPosition(event);
@@ -134,8 +184,9 @@ function sketch(event) {
   }
   x = coord.x;
   y = coord.y;
+}
 
-  /*ctx.beginPath();
+/*ctx.beginPath();
 
   ctx.lineWidth = 5;
 
@@ -160,4 +211,3 @@ function sketch(event) {
 
   // Draws the line.
   ctx.stroke();*/
-}
