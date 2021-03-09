@@ -15,34 +15,36 @@ window.addEventListener("load", () => {
 });
 
 function touchStart(event) {
-  // startPainting(event.touches[0]);
-  paint = true;
-  pic = pics[picIndex];
-  getPositionTouch(event.touches[0]);
-  x = coord.x;
-  y = coord.y;
+  if (event.targetTouches[0].target.tagName == "BUTTON") {
+    paint = true;
+    pic = pics[picIndex];
+    getPositionTouch(event.touches[0]);
+    x = coord.x;
+    y = coord.y;
 
-  let height = 250;
-  let multiplier = pic.height / height;
-  imageHeight = pic.height / multiplier;
-  imageWidth = pic.width / multiplier;
+    let height = 250;
+    let multiplier = pic.height / height;
+    imageHeight = pic.height / multiplier;
+    imageWidth = pic.width / multiplier;
 
-  console.log(images[picIndex]);
+    console.log(images[picIndex]);
 
-  ctx.drawImage(
-    pic,
-    coord.x - imageWidth / 2,
-    coord.y - imageHeight / 2,
-    imageWidth,
-    imageHeight
-  );
-  document.getElementById("imageText").innerHTML = images[picIndex];
-  picIndex += 1;
-  if (picIndex == pics.length) {
-    picIndex = 0;
+    ctx.drawImage(
+      pic,
+      coord.x - imageWidth / 2,
+      coord.y - imageHeight / 2,
+      imageWidth,
+      imageHeight
+    );
+    document.getElementById("imageText").innerHTML = images[picIndex];
+    picIndex += 1;
+    if (picIndex == pics.length) {
+      picIndex = 0;
+    }
+    event.preventDefault();
   }
-  event.preventDefault();
 }
+
 function touchMove(event) {
   if (!paint) return;
   // The position of the cursor
