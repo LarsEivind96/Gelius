@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
 });
 
 function touchStart(event) {
-  if (event.targetTouches[0].target.tagName == "BUTTON") {
+  if (event.targetTouches[0].target.tagName != "BUTTON") {
     paint = true;
     pic = pics[picIndex];
     getPositionTouch(event.touches[0]);
@@ -73,6 +73,7 @@ function touchEnd(event) {
 }
 
 let images = [
+  "BicepGif.gif",
   "fast_entertainment_2.png",
   "Fastclvb horsepower fff red.png",
   "imm007_8-kopi.jpg",
