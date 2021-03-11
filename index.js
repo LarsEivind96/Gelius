@@ -15,6 +15,7 @@ window.addEventListener("load", () => {
 });
 
 function touchStart(event) {
+  event.preventDefault();
   if (event.targetTouches[0].target.tagName != "BUTTON") {
     paint = true;
     pic = pics[picIndex];
@@ -41,11 +42,11 @@ function touchStart(event) {
     if (picIndex == pics.length) {
       picIndex = 0;
     }
-    event.preventDefault();
   }
 }
 
 function touchMove(event) {
+  event.preventDefault();
   if (!paint) return;
   // The position of the cursor
   // gets updated as we move the
@@ -65,8 +66,6 @@ function touchMove(event) {
   }
   x = coord.x;
   y = coord.y;
-
-  event.preventDefault();
 }
 function touchEnd(event) {
   stopPainting(event.changedTouches[0]);
