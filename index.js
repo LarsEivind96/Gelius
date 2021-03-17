@@ -72,11 +72,11 @@ function touchEnd(event) {
 }
 
 let images = [
-  "BicepGif.gif",
+  // "BicepGif.gif",
   "fast_entertainment_2.png",
-  /*"Fastclvb horsepower fff red.png",
-    "imm007_8-kopi.jpg",
-    "imm026_29.jpg",
+  "Fastclvb horsepower fff red.png",
+  "imm007_8-kopi.jpg",
+  /*  "imm026_29.jpg",
     "imm027_29.jpg",
     "imm029_32.jpg",
     "prosjekt2-kopi.jpg",
@@ -256,7 +256,6 @@ function drawSmoothGif() {
 }
 
 const GIF = function () {
-  // **NOT** for commercial use.
   var timerID; // timer handle for set time out usage
   var st; // holds the stream object when loading.
   var interlaceOffsets = [0, 4, 2, 1]; // used in de-interlacing.
