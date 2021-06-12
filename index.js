@@ -112,6 +112,7 @@ let isGif = false;
 
 // Draws the current image
 function startDraw(event) {
+  test = true;
   paint = true;
   pic = pics[picIndex];
   getPosition(event);
@@ -145,10 +146,13 @@ function startDraw(event) {
   }
 }
 
+let test = true;
 // Draws the current image along the path of the mouse or touch entity.
 function sketch(event) {
+  console.log(coord.x);
   if (!paint) return;
   getPosition(event);
+  t = 0;
 
   if (isGif) {
     drawSmoothGif();
@@ -158,6 +162,30 @@ function sketch(event) {
 
   x = coord.x;
   y = coord.y;
+  // requestAnimationFrame(sketch);
+}
+
+let newX = 0;
+let newY = 0;
+let t = 0;
+
+function animate() {
+  newX += EasingFunctions.easeInOutQuad(t) * (coord.x - newX);
+  newY += EasingFunctions.easeInOutQuad(t) * (coord.y - newY);
+  console.log(newX);
+  ctx.drawImage(
+    pic,
+    newX - imageWidth / 2, // ((coord.x - x) * i) / n + x - imageWidth / 2,
+    newY - imageHeight / 2, // ((coord.y - y) * i) / n + y - imageHeight / 2,
+    imageWidth,
+    imageHeight
+  );
+
+  if (paint) {
+    t += 0.1;
+    console.log("hei");
+    requestAnimationFrame(animate);
+  }
 }
 
 function drawSmoothImage() {
@@ -174,6 +202,21 @@ function drawSmoothImage() {
     }
   }
 }
+
+EasingFunctions = {
+  linear: function (t) {
+    return t;
+  },
+  easeInQuad: function (t) {
+    return t * t;
+  },
+  easeOutQuad: function (t) {
+    return t * (2 - t);
+  },
+  easeInOutQuad: function (t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  },
+};
 
 function drawSmoothGif() {
   if (x != 0 || y != 0) {
