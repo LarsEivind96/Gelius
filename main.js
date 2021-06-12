@@ -46,10 +46,23 @@ let images = [
 ];
 
 let gifs = [
-  { src: "spriteGif.png", width: 480, height: 480, frames: 45 },
-  { src: "DiCaprioSprite.png", width: 600, height: 400, frames: 68 },
-  { src: "NyanCatSprite.png", width: 476, height: 280, frames: 12 },
+  { src: "spriteGif.png", width: 480, height: 480, frames: 45, s_f: 3 },
+  {
+    src: "DiCaprioSprite.png",
+    width: 600,
+    height: 400,
+    frames: 68,
+    s_f: 2,
+  },
+  {
+    src: "NyanCatSprite.png",
+    width: 476,
+    height: 280,
+    frames: 11,
+    s_f: 5,
+  },
 ];
+console.log(gifs);
 
 let assets = [];
 
@@ -62,6 +75,7 @@ for (gifIndex in gifs) {
     frameWidth: gifs[gifIndex].width,
     frameHeight: gifs[gifIndex].height,
     frames: gifs[gifIndex].frames,
+    skipFrames: gifs[gifIndex].s_f,
   };
   assets.push(gifObject);
 }
@@ -105,6 +119,9 @@ function touchMove(event) {
 
 function touchEnd() {
   paint = false;
+  shift = 0;
+  currentFrame = 0;
+  if (asset.isGif) cancelAnimationFrame(animationFrameId);
 }
 
 // Mouse event handler functions
@@ -243,7 +260,9 @@ let timeout;
 
 function animate() {
   frameCount++;
-  if (frameCount < 3 || !animatingGif) {
+  console.log(asset.skipFrames);
+  console.log(asset);
+  if (frameCount < asset.skipFrames || !animatingGif) {
     animationFrameId = requestAnimationFrame(animate);
     return;
   }
