@@ -46,39 +46,24 @@ let images = [
 ];
 
 let gifs = [
-  { src: "spriteGif.png", width: 480, height: 480, frames: 45, s_f: 3 },
+  { src: "spriteGif.png", w: 480, h: 480, frames: 45, s_f: 3 },
   {
     src: "DiCaprioSprite.png",
-    width: 600,
-    height: 400,
+    w: 600,
+    h: 400,
     frames: 68,
     s_f: 2,
   },
   {
     src: "NyanCatSprite.png",
-    width: 476,
-    height: 280,
+    w: 476,
+    h: 280,
     frames: 11,
     s_f: 5,
   },
 ];
-console.log(gifs);
 
 let assets = [];
-
-for (gifIndex in gifs) {
-  let gif = new Image();
-  gif.src = "assets/" + gifs[gifIndex].src;
-  let gifObject = {
-    isGif: true,
-    image: gif,
-    frameWidth: gifs[gifIndex].width,
-    frameHeight: gifs[gifIndex].height,
-    frames: gifs[gifIndex].frames,
-    skipFrames: gifs[gifIndex].s_f,
-  };
-  assets.push(gifObject);
-}
 
 let pics = [];
 for (imageIndex in images) {
@@ -90,6 +75,24 @@ for (imageIndex in images) {
     image: pic,
   };
   assets.push(picObject);
+}
+
+for (gifIndex in gifs) {
+  let gif = new Image();
+  gif.src = "assets/" + gifs[gifIndex].src;
+  let gifObject = {
+    isGif: true,
+    image: gif,
+    frameWidth: gifs[gifIndex].w,
+    frameHeight: gifs[gifIndex].h,
+    frames: gifs[gifIndex].frames,
+    skipFrames: gifs[gifIndex].s_f,
+  };
+  assets.push(gifObject);
+  // Hacky solution to make the gifs draw faster on first draw.
+  gif.addEventListener("load", () => {
+    ctx.drawImage(gifObject.image, 0, 0, 1, 1, 0, 0, 1, 1);
+  });
 }
 
 let picIndex = 0;
@@ -165,8 +168,6 @@ function startDraw(event) {
   imageWidth = asset.image.width / multiplier;
 
   if (asset.isGif) {
-    console.log("Draw gif");
-    console.log("shift", shift);
     imageWidth = asset.frameWidth / multiplier;
     totalFrames = asset.frames;
     ctx.drawImage(
@@ -190,7 +191,7 @@ function startDraw(event) {
       imageHeight
     );
   }
-  document.getElementById("imageText").innerHTML = images[picIndex];
+  //document.getElementById("imageText").innerHTML = images[picIndex];
   assetIndex += 1;
   if (assetIndex == assets.length) {
     assetIndex = 0;
@@ -260,8 +261,6 @@ let timeout;
 
 function animate() {
   frameCount++;
-  console.log(asset.skipFrames);
-  console.log(asset);
   if (frameCount < asset.skipFrames || !animatingGif) {
     animationFrameId = requestAnimationFrame(animate);
     return;
@@ -273,7 +272,6 @@ function animate() {
     currentFrame = 0;
   }
   shift += asset.frameWidth;
-  console.log(shift);
 
   currentFrame++;
 

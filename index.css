@@ -41,9 +41,17 @@ p {
   padding-bottom: 10px;
 }
 #imageText {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.9);
   padding: 10px;
 }
 button {
   cursor: pointer;
+}
+.fa {
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
