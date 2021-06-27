@@ -11,6 +11,12 @@ window.addEventListener("load", () => {
   document.addEventListener("touchend", touchEnd);
   document.addEventListener("touchmove", touchMove);
 
+  document.addEventListener("mousedown", musicPlay);
+  function musicPlay() {
+    document.getElementById("audioPlayer").play();
+    document.removeEventListener("mousedown", musicPlay);
+  }
+
   window.addEventListener("resize", resize);
 });
 
