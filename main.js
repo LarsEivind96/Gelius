@@ -135,7 +135,7 @@ function touchEnd() {
 
 // Mouse event handler functions
 function mouseDown(event) {
-  if (event.path[0].id != "navigationButton") {
+  if (event.path && event.path.length > 0 && event.path[0].id != "navigationButton") {
     startDraw(event);
   }
 }
