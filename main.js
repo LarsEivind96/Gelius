@@ -21,7 +21,6 @@ window.addEventListener("load", () => {
 });
 
 const canvas = document.querySelector("#canvas");
-// Context for the canvas for 2 dimensional operations
 const ctx = canvas.getContext("2d");
 
 // Resizes the canvas to the available size of the window.
@@ -38,28 +37,19 @@ let coord = { x: 0, y: 0 };
 let paint = false;
 
 let images = [
-  // "BicepGif.gif",
   "fast_entertainment_2.png",
   "Fastclvb horsepower fff red.png",
   "imm007_8-kopi.jpg",
   "prosjekt2-kopi.jpg",
-  /*  "imm026_29.jpg",
-      "imm027_29.jpg",
-      "imm029_32.jpg",
-      "prosjekt2-kopi.jpg",
-      "Skjermbilde 2019-10-27 kl. 14.45.10.png",
-      "Skjermbilde 2021-03-03 kl. 13.31.33-kopi.png",*/
+  "imm026_29.jpg",
+  "imm027_29.jpg",
+  "imm029_32.jpg",
+  "blue_blur.png",
+  "cheat_code.jpg",
 ];
 
 let gifs = [
   { src: "spriteGif.png", w: 480, h: 480, frames: 45, s_f: 3 },
-  {
-    src: "DiCaprioSprite.png",
-    w: 600,
-    h: 400,
-    frames: 68,
-    s_f: 2,
-  },
   {
     src: "NyanCatSprite.png",
     w: 476,
@@ -135,9 +125,7 @@ function touchEnd() {
 
 // Mouse event handler functions
 function mouseDown(event) {
-  if (event.path && event.path.length > 0 && event.path[0].id != "navigationButton") {
-    startDraw(event);
-  }
+  startDraw(event);
 }
 
 function mouseMove(event) {
